@@ -1,0 +1,3 @@
+MLX90614.c:19:6:MLX90614_WriteReg	32	static
+MLX90614.c:57:10:MLX90614_ReadReg	40	static
+MLX90614.c:78:7:MLX90614_ReadTemp	24	static

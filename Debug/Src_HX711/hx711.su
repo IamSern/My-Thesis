@@ -1,0 +1,4 @@
+hx711.c:21:7:HX711_init	24	static
+hx711.c:43:10:HX711_value	32	static
+hx711.c:74:10:HX711_valueAve	40	static
+hx711.c:83:8:HX711_getWeight	16	static
