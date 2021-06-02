@@ -12,6 +12,7 @@ void HX711_init(void);
 uint32_t HX711_value(int Channel);
 uint32_t HX711_valueAve(uint16_t sample, int Channel);
 float HX711_getWeight(void);
+uint8_t HX711_getPressure(void);
 #endif
 
 

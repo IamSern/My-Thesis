@@ -83,9 +83,21 @@ uint32_t HX711_valueAve(uint16_t sample, int Channel)
  float HX711_getWeight(void)
  { 
    float Weight = 0;
-   uint32_t weight_raw = HX711_valueAve(16, Channel_B);
+   uint32_t weight_raw = HX711_valueAve(16, Channel_A);
    Weight = 2* ((pow(2,23) - weight_raw))/((pow(2, 23)/200));
    return Weight;
+ }
+
+ /***
+  * @brief lấy giá trị huyết áp
+  * @param NONE
+  * @return gía trị huyết áp
+  * */
+ uint8_t HX711_getPressure(void)
+ {
+   uint8_t data = 0;
+   uint32_t data_raw = HX711_valueAve(16, Channel_B);
+   data = 2* ((pow(2,23) - data_raw))/((pow(2, 23)/300));
  }
 
 
