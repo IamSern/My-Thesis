@@ -22,8 +22,9 @@
                 "d:/_Project/LVTN/main_LVTN_03/MLX90614BAA",
                 "d:/_Project/LVTN/main_LVTN_03/Source_gLCD",
                 "d:/_Project/LVTN/main_LVTN_03/Source_rc522",
-                "d:/_Project/LVTN/main_LVTN_03/Src_HX711",
+                "d:/_Project/LVTN/main_LVTN_03/Src_HX711",`
                 "d:/_Project/LVTN/main_LVTN_03/util",
+                "d:/_Project/LVTN/main_LVTN_03/UI_gLCD",
 */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
@@ -36,6 +37,7 @@
 #include "rc522.h"
 #include "MLX90614.h"
 #include "hx711.h"
+#include "ui_gLCD.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
