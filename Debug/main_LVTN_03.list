@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  000201e8  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00016371  00000000  00000000  00020211  2**0
+ 12 .debug_info   000163aa  00000000  00000000  00020211  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00002ee1  00000000  00000000  00036582  2**0
+ 13 .debug_abbrev 00002ee1  00000000  00000000  000365bb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000012f8  00000000  00000000  00039468  2**3
+ 14 .debug_aranges 00001300  00000000  00000000  000394a0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 000011c8  00000000  00000000  0003a760  2**3
+ 15 .debug_ranges 000011d0  00000000  00000000  0003a7a0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001a892  00000000  00000000  0003b928  2**0
+ 16 .debug_macro  0001a892  00000000  00000000  0003b970  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00016738  00000000  00000000  000561ba  2**0
+ 17 .debug_line   0001675f  00000000  00000000  00056202  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00091750  00000000  00000000  0006c8f2  2**0
+ 18 .debug_str    0009176b  00000000  00000000  0006c961  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000fe042  2**0
+ 19 .comment      00000053  00000000  00000000  000fe0cc  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00006548  00000000  00000000  000fe098  2**2
+ 20 .debug_frame  0000656c  00000000  00000000  000fe120  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -15551,8 +15551,8 @@ uint32_t HX711_valueAve(uint16_t sample, int Channel)
    float Weight = 0;
  800607e:	f04f 0300 	mov.w	r3, #0
  8006082:	607b      	str	r3, [r7, #4]
-   uint32_t weight_raw = HX711_valueAve(16, Channel_B);
- 8006084:	2119      	movs	r1, #25
+   uint32_t weight_raw = HX711_valueAve(16, Channel_A);
+ 8006084:	2118      	movs	r1, #24
  8006086:	2010      	movs	r0, #16
  8006088:	f7ff ffc4 	bl	8006014 <HX711_valueAve>
  800608c:	6038      	str	r0, [r7, #0]
