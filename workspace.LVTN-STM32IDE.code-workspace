@@ -3,6 +3,10 @@
         {
             "name": "main_LVTN_03",
             "path": "."
+        },
+        {
+            "name": "RTOS_mainLVTN",
+            "path": "..\\RTOS_mainLVTN"
         }
     ]
 }

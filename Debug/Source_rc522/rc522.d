@@ -26,7 +26,7 @@ Source_rc522/rc522.o: ../Source_rc522/rc522.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Source_rc522/rc522.h
+ ../Source_rc522/rc522.h ../Core/Inc/main.h
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 
@@ -83,3 +83,5 @@ Source_rc522/rc522.o: ../Source_rc522/rc522.c \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 
 ../Source_rc522/rc522.h:
+
+../Core/Inc/main.h:

@@ -26,5 +26,6 @@
 "Source_gLCD/fonts.o"
 "Source_rc522/rc522.o"
 "Src_HX711/hx711.o"
+"UI_gLCD/ui_gLCD.o"
 "util/DWT_Delay.o"
 "util/Timer_Delay.o"

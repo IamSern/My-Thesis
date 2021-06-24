@@ -116,7 +116,7 @@ uint8_t Is_First_Captured = 0;  // is the first value captured ?
 uint8_t Distance  = 0;
 
 #define TRIG_PIN GPIO_PIN_9
-#define TRIG_PORT GPIOA
+#define TRIG_PORT GPIOB
 
 // Let's write the callback function
 
@@ -174,14 +174,7 @@ void HCSR04_Read (void)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t CardID[5];
-	char bufCardID[50];
-	//Temp
-	  float Temp1 = 0;
-	  char bufTemp1[5];
-	  // weight
-	  float weight = 0;
-	  char bufWeight[5];
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -209,56 +202,57 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-  TimerDelay_Init();
-	MFRC522_Init();
-	ST7565_Init();
-	HAL_Delay(100);
-	HX711_init();
 
-	HAL_Delay(100);
-	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, RESET);
+    uint8_t height = 123;
+    char ch_height[10];
 
-	ST7565_Print(1, 1, "Height=", &Font_7x9, 1, 1);
-	  ST7565_Print(1, 1+9+2, "Weight=", &Font_7x9, 1, 1);
-	  ST7565_Print(1, 1+(9+2)*2, "Temp=", &Font_7x9, 1, 1);
-	  ST7565_Print(1, 1+(9+2)*3, "CardID=", &Font_7x9, 1, 1);
-	  HAL_Delay(1000);
+    float temp = 36.5;
+    char ch_temp[10];
+
+    float weight = 60.7;
+    char ch_weight[10];
+
+    uint8_t pressure = 120;
+    char pressure_ch[3];
+
+    uint8_t pulse = 53;
+    char pulse_ch[2];
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
 	while (1) {
-		//Height
-		HCSR04_Read();
-		heightShow(Distance);
-		//RF
-		if (MFRC522_Check(CardID) == MI_OK) {
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, SET);
-			sprintf(bufCardID, "%02X %02X %02X %02X %02X", CardID[0], CardID[1], CardID[2], CardID[3], CardID[4]);
-			ST7565_Print(7*7, 1+(9+2)*3, bufCardID, &Font_7x9, 1, 1);
+//		HAL_Delay(10000);
+		HAL_UART_Transmit(&huart2, (uint8_t*)"START", 5, 100);
+		sprintf(ch_height, "%d", height);
+		HAL_UART_Transmit(&huart2, (uint8_t*)"$", 1, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)&ch_height, 3, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"\n", 1, 10);
 
-		}
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, SET);
+    sprintf(ch_weight, "%.1f", weight);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"#", 1, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)&ch_weight, 4, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"\n", 1, 10);
 
+    sprintf(ch_temp, "%.1f", temp);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"@", 1, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)&ch_temp, 4, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"\n", 1, 10);
 
+    sprintf(pressure_ch, "%d", pressure);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"%", 1, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)&pressure_ch, 3, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"\n", 1, 10);
 
-		//Temp
-		Temp1 = MLX90614_ReadTemp(MLX90614_DEFAULT_SA, MLX90614_TOBJ1);
-		sprintf(bufTemp1, "%.1f", Temp1);
-		ST7565_Print(5*7, 1+(9+2)*2, bufTemp1, &Font_7x9, 1, 1);
-		HAL_UART_Transmit(&huart2, (uint8_t *)&bufTemp1, 5, 100);
-		HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
-
-		//Weight
-		weight = HX711_getWeight();
-		sprintf(bufWeight, "%.1f", weight);
-		ST7565_Print(7*7, 1+(9+2), bufWeight, &Font_7x9, 1, 1);
-		HAL_UART_Transmit(&huart2, (uint8_t *)&bufWeight, 5, 100);
-		HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
-
+    sprintf(pulse_ch, "%d", pulse);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"&", 1, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)&pulse_ch, 2, 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"\n", 1, 10);
+    HAL_UART_Transmit(&huart2, (uint8_t*)"OVER", 4, 100);
+    
+    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -551,37 +545,48 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_4|GPIO_PIN_9|GPIO_PIN_10
-                          |GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13|Buzzer_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3|GPIO_PIN_4, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|Pump_Pin|GPIO_PIN_10|GPIO_PIN_11
+                          |GPIO_PIN_12, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA0 PA4 PA9 PA10
-                           PA11 PA12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_4|GPIO_PIN_9|GPIO_PIN_10
-                          |GPIO_PIN_11|GPIO_PIN_12;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|Valve_Pin|GPIO_PIN_9, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : PC13 Buzzer_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_13|Buzzer_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA4 Pump_Pin PA10 PA11
+                           PA12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|Pump_Pin|GPIO_PIN_10|GPIO_PIN_11
+                          |GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PA1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  /*Configure GPIO pins : PB10 Valve_Pin PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10|Valve_Pin|GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PB3 PB4 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_4;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }

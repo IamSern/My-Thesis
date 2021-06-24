@@ -1,5 +1,5 @@
-
 #include "stm32f1xx_hal.h"
+#include "main.h"
 
 #define cs_reset() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
 #define cs_set() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)

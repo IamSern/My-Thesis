@@ -98,6 +98,8 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/main_LVTN_03/Src_HX711}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/main_LVTN_03/util}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/main_LVTN_03/UI_gLCD}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -152,6 +154,8 @@
                     <sourceEntries>
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Src_HX711"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="UI_gLCD"/>
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="util"/>
                         						
