@@ -1,5 +1,5 @@
-ST7565.c:19:6:ST7565_Select	8	static
-ST7565.c:36:6:ST7565_Unselect	8	static
+ST7565.c:19:6:ST7565_Select	4	static
+ST7565.c:36:6:ST7565_Unselect	4	static
 ST7565.c:54:6:ST7565_Reset	8	static
 ST7565.c:63:6:ST7565_w_dat	16	static
 ST7565.c:136:6:ST7565_w_cmd	16	static

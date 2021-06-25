@@ -14,7 +14,7 @@
 
 
 uint8_t ST7565_buffer[SCREEN_WIDTH * SCREEN_HEIGHT / 8];
-
+// extern enum {WHITE = 0, BLACK = 1} color_t;
 
 void ST7565_Select(void) {
 	
@@ -322,7 +322,7 @@ void ST7565_Clear(void){
   ST7565_Unselect();
 }
 
-void ST7565_Draw_pixel(int16_t x, int16_t y, uint8_t color){
+void ST7565_Draw_pixel(int16_t x, int16_t y, color_t color){
 	
     if (x > SCREEN_WIDTH || x < 0 || y > SCREEN_HEIGHT || y < 0) return;
 
@@ -482,7 +482,7 @@ void ST7565_DrawChar(int16_t x, int16_t y, unsigned char ch, FontDef_t* Font, ui
 	}
 }
 
-void ST7565_Print(int16_t x, int16_t y, char* str, FontDef_t* Font, uint8_t multiplier, uint8_t color) {
+void ST7565_Print(int16_t x, int16_t y, char* str, FontDef_t* Font, uint8_t multiplier, color_t color) {
 	
 	if( multiplier < 1 ){
 		multiplier = 1;
@@ -536,7 +536,7 @@ void ST7565_Print(int16_t x, int16_t y, char* str, FontDef_t* Font, uint8_t mult
 	}
 }
 
-void ST7565_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint8_t c) {
+void ST7565_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, color_t color) {
 	
 	int16_t dx, dy, sx, sy, err, e2, i, tmp; 
 	
@@ -575,7 +575,7 @@ void ST7565_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint8_t c) 
 		
 		/* Vertical line */
 		for (i = y0; i <= y1; i++) {
-			ST7565_Draw_pixel(x0, i, c);
+			ST7565_Draw_pixel(x0, i, color);
 		}
 		
 		/* Return from function */
@@ -597,7 +597,7 @@ void ST7565_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint8_t c) 
 		
 		/* Horizontal line */
 		for (i = x0; i <= x1; i++) {
-			ST7565_Draw_pixel(i, y0, c);
+			ST7565_Draw_pixel(i, y0, color);
 		}
 		
 		/* Return from function */
@@ -605,7 +605,7 @@ void ST7565_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint8_t c) 
 	}
 	
 	while (1) {
-		ST7565_Draw_pixel(x0, y0, c);
+		ST7565_Draw_pixel(x0, y0, color);
 		if (x0 == x1 && y0 == y1) {
 			break;
 		}

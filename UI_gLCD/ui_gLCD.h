@@ -11,8 +11,10 @@
 #include "main.h"
 #include "ST7565.h"
 
-void wait(void);
+void UIwait(void);
 void startUp(void);
+void showKQ(void);
+void UImeas_pressure(void);
 
 
 

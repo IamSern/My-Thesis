@@ -27,5 +27,6 @@ MLX90614BAA \
 Source_gLCD \
 Source_rc522 \
 Src_HX711 \
+UI_gLCD \
 util \
 

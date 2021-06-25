@@ -22,7 +22,7 @@
                 "d:/_Project/LVTN/main_LVTN_03/MLX90614BAA",
                 "d:/_Project/LVTN/main_LVTN_03/Source_gLCD",
                 "d:/_Project/LVTN/main_LVTN_03/Source_rc522",
-                "d:/_Project/LVTN/main_LVTN_03/Src_HX711",`
+                "d:/_Project/LVTN/main_LVTN_03/Src_HX711",
                 "d:/_Project/LVTN/main_LVTN_03/util",
                 "d:/_Project/LVTN/main_LVTN_03/UI_gLCD",
 */
@@ -212,52 +212,46 @@ int main(void)
   TimerDelay_Init();
 	MFRC522_Init();
 	ST7565_Init();
-	HAL_Delay(100);
 	HX711_init();
 
 	HAL_Delay(100);
 	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, RESET);
-
-	ST7565_Print(1, 1, "Height=", &Font_7x9, 1, 1);
-	  ST7565_Print(1, 1+9+2, "Weight=", &Font_7x9, 1, 1);
-	  ST7565_Print(1, 1+(9+2)*2, "Temp=", &Font_7x9, 1, 1);
-	  ST7565_Print(1, 1+(9+2)*3, "CardID=", &Font_7x9, 1, 1);
-	  HAL_Delay(1000);
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
-		//Height
-		HCSR04_Read();
-		heightShow(Distance);
-		//RF
-		if (MFRC522_Check(CardID) == MI_OK) {
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, SET);
-			sprintf(bufCardID, "%02X %02X %02X %02X %02X", CardID[0], CardID[1], CardID[2], CardID[3], CardID[4]);
-			ST7565_Print(7*7, 1+(9+2)*3, bufCardID, &Font_7x9, 1, 1);
+    UImeas_pressure();
 
-		}
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, SET);
+		// //Height
+		// HCSR04_Read();
+		// heightShow(Distance);
+		// //RF
+		// if (MFRC522_Check(CardID) == MI_OK) {
+		// 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, SET);
+		// 	sprintf(bufCardID, "%02X %02X %02X %02X %02X", CardID[0], CardID[1], CardID[2], CardID[3], CardID[4]);
+		// 	ST7565_Print(7*7, 1+(9+2)*3, bufCardID, &Font_7x9, 1, 1);
+
+		// }
+		// else
+		// 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, SET);
 
 
 
-		//Temp
-		Temp1 = MLX90614_ReadTemp(MLX90614_DEFAULT_SA, MLX90614_TOBJ1);
-		sprintf(bufTemp1, "%.1f", Temp1);
-		ST7565_Print(5*7, 1+(9+2)*2, bufTemp1, &Font_7x9, 1, 1);
-		HAL_UART_Transmit(&huart2, (uint8_t *)&bufTemp1, 5, 100);
-		HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
+		// //Temp
+		// Temp1 = MLX90614_ReadTemp(MLX90614_DEFAULT_SA, MLX90614_TOBJ1);
+		// sprintf(bufTemp1, "%.1f", Temp1);
+		// ST7565_Print(5*7, 1+(9+2)*2, bufTemp1, &Font_7x9, 1, 1);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)&bufTemp1, 5, 100);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
 
-		//Weight
-		weight = HX711_getWeight();
-		sprintf(bufWeight, "%.1f", weight);
-		ST7565_Print(7*7, 1+(9+2), bufWeight, &Font_7x9, 1, 1);
-		HAL_UART_Transmit(&huart2, (uint8_t *)&bufWeight, 5, 100);
-		HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
+		// //Weight
+		// weight = HX711_getWeight();
+		// sprintf(bufWeight, "%.1f", weight);
+		// ST7565_Print(7*7, 1+(9+2), bufWeight, &Font_7x9, 1, 1);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)&bufWeight, 5, 100);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
 
     /* USER CODE END WHILE */
 
@@ -551,37 +545,48 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_4|GPIO_PIN_9|GPIO_PIN_10
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13|Buzzer_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_4|Pump_Pin|GPIO_PIN_10
                           |GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3|GPIO_PIN_4, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|Valve_Pin|GPIO_PIN_9, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA0 PA4 PA9 PA10
+  /*Configure GPIO pins : PC13 Buzzer_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_13|Buzzer_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA0 PA4 Pump_Pin PA10
                            PA11 PA12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_4|GPIO_PIN_9|GPIO_PIN_10
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_4|Pump_Pin|GPIO_PIN_10
                           |GPIO_PIN_11|GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PA1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PB3 PB4 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_4;
+  /*Configure GPIO pins : PB10 Valve_Pin PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10|Valve_Pin|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }

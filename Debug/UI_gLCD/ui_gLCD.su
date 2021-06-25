@@ -1,0 +1,4 @@
+ui_gLCD.c:5:6:UIwait	16	static
+ui_gLCD.c:16:6:showKQ	16	static
+ui_gLCD.c:23:6:startUp	4	static
+ui_gLCD.c:28:6:UImeas_pressure	16	static

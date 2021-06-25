@@ -10,6 +10,11 @@
 #define HX711_delay(x)    HAL_Delay(x)
 #endif
 
+typedef enum {ON = 1, OFF = 0} state;
+typedef enum {WAIT,SYS, DIAS, PULSE} measureState_t;
+typedef enum {START, INFLATE, DEFLATE, STOP} pumpState_t;
+static pumpState_t currentState = START;
+static measureState_t measureState = WAIT;
 //#############################################################################################
 __STATIC_INLINE void HX711_delay_us(uint32_t microseconds)
 {
@@ -39,7 +44,7 @@ void  HX711_init(void)
   HX711_delay(10);
   HX711_valueAve(8, Channel_B);
 }
-//#############################################################################################
+
 uint32_t HX711_value(int Channel)
 {
   uint32_t data = 0;
@@ -98,6 +103,55 @@ uint32_t HX711_valueAve(uint16_t sample, int Channel)
    uint8_t data = 0;
    uint32_t data_raw = HX711_valueAve(16, Channel_B);
    data = 2* ((pow(2,23) - data_raw))/((pow(2, 23)/300));
+ }
+
+ void measurePress(void)
+ {
+   switch (currentState)
+   {
+   case START:
+     /* code */
+     break;
+   case INFLATE:
+   if(sysMax < pressure){
+     currentState = DEFLATE;
+   } 
+   else currentState = INFLATE;
+
+   case DEFLATE:
+   if(diasMin > pressure){
+     currentState = STOP;
+   }
+   else currentState = DEFLATE;
+   
+   }
+   switch (currentState)
+   {
+   case START:
+     //show UI_gLCD
+    //  measureState = SYS;
+
+     break;
+   case INFLATE:
+   SYS_measure();
+    break;
+   case DEFLATE:
+   DIAS_measure();
+    break;
+   case STOP: 
+    break;
+   }
+   
+
+ }
+ 
+ void SYS_measure(void)
+ {
+
+ }
+ void DIAS_measure(void)
+ {
+
  }
 
 

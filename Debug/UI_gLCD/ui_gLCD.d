@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+UI_gLCD/ui_gLCD.o: ../UI_gLCD/ui_gLCD.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -27,12 +27,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  D:/_Project/LVTN/main_LVTN_03/Source_gLCD/ST7565.h \
- D:/_Project/LVTN/main_LVTN_03/Source_gLCD/fonts.h \
- D:/_Project/LVTN/main_LVTN_03/Source_rc522/rc522.h \
- D:/_Project/LVTN/main_LVTN_03/MLX90614BAA/MLX90614.h \
- D:/_Project/LVTN/main_LVTN_03/Src_HX711/hx711.h \
- D:/_Project/LVTN/main_LVTN_03/util/Timer_Delay.h \
- D:/_Project/LVTN/main_LVTN_03/UI_gLCD/ui_gLCD.h
+ D:/_Project/LVTN/main_LVTN_03/Source_gLCD/fonts.h ../UI_gLCD/ui_gLCD.h
 
 ../Core/Inc/main.h:
 
@@ -94,12 +89,4 @@ D:/_Project/LVTN/main_LVTN_03/Source_gLCD/ST7565.h:
 
 D:/_Project/LVTN/main_LVTN_03/Source_gLCD/fonts.h:
 
-D:/_Project/LVTN/main_LVTN_03/Source_rc522/rc522.h:
-
-D:/_Project/LVTN/main_LVTN_03/MLX90614BAA/MLX90614.h:
-
-D:/_Project/LVTN/main_LVTN_03/Src_HX711/hx711.h:
-
-D:/_Project/LVTN/main_LVTN_03/util/Timer_Delay.h:
-
-D:/_Project/LVTN/main_LVTN_03/UI_gLCD/ui_gLCD.h:
+../UI_gLCD/ui_gLCD.h:
