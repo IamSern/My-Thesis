@@ -4,5 +4,10 @@
             "name": "main_LVTN_03",
             "path": "."
         }
-    ]
+    ],
+    "settings": {
+        "files.associations": {
+            "timer_delay.h": "c"
+        }
+    }
 }

@@ -27,7 +27,8 @@ UI_gLCD/ui_gLCD.o: ../UI_gLCD/ui_gLCD.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  D:/_Project/LVTN/main_LVTN_03/Source_gLCD/ST7565.h \
- D:/_Project/LVTN/main_LVTN_03/Source_gLCD/fonts.h ../UI_gLCD/ui_gLCD.h
+ D:/_Project/LVTN/main_LVTN_03/Source_gLCD/fonts.h ../UI_gLCD/ui_gLCD.h \
+ ../UI_gLCD/IconBitmap.h
 
 ../Core/Inc/main.h:
 
@@ -90,3 +91,5 @@ D:/_Project/LVTN/main_LVTN_03/Source_gLCD/ST7565.h:
 D:/_Project/LVTN/main_LVTN_03/Source_gLCD/fonts.h:
 
 ../UI_gLCD/ui_gLCD.h:
+
+../UI_gLCD/IconBitmap.h:

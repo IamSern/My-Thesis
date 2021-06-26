@@ -1,6 +1,7 @@
 #include "main.h"
 #include "ST7565.h"
 #include "ui_gLCD.h"
+#include "IconBitmap.h"
 
 void UIwait(void)
 {
@@ -22,12 +23,14 @@ void showKQ(void)
 }
 void startUp(void)
 {
+ST7565_DrawBitmap(1,1, no1_2, 20, 20, 1);
 
 }
 
 void UImeas_pressure(void)
 {
     ST7565_Print(1, 1, "SYS", &Font_11x18, 1, BLACK);
+    // ST7565_DrawBitmap(1,1, no1, 30, 30, 1);
     ST7565_Print(1, 20, "DIA", &Font_11x18, 1, BLACK);
     ST7565_Print(1, 40, "PULSE", &Font_11x18, 1, BLACK);
     // duong ke doc
@@ -35,12 +38,12 @@ void UImeas_pressure(void)
     ST7565_DrawLine(110, 1, 110, 64, BLACK);
 
     // ket qua SYS
-    ST7565_Print(44, 1, "..8", &Font_11x18, 1, BLACK);
+    // ST7565_Print(44, 1, "..8", &Font_11x18, 1, BLACK);
     ST7565_Print(80, 8, "mmHg", &Font_7x9, 1, BLACK);
     // ket qua DIA
-    ST7565_Print(44, 20, "..8", &Font_11x18, 1, BLACK);
+    // ST7565_Print(44, 20, "..8", &Font_11x18, 1, BLACK);
     ST7565_Print(80, 27, "mmHg", &Font_7x9, 1, BLACK);
     // ket qua PULSE
-    ST7565_Print(66, 40, "..", &Font_11x18, 1, BLACK);
+    // ST7565_Print(66, 40, "..", &Font_11x18, 1, BLACK);
     //
 }

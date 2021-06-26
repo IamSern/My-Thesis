@@ -38,6 +38,7 @@
 #include "MLX90614.h"
 #include "hx711.h"
 #include "ui_gLCD.h"
+//#include "IconBitmap.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -174,14 +175,7 @@ void HCSR04_Read (void)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t CardID[5];
-	char bufCardID[50];
-	//Temp
-	  float Temp1 = 0;
-	  char bufTemp1[5];
-	  // weight
-	  float weight = 0;
-	  char bufWeight[5];
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -210,19 +204,25 @@ int main(void)
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   TimerDelay_Init();
-	MFRC522_Init();
 	ST7565_Init();
 	HX711_init();
 
 	HAL_Delay(100);
 	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
-	
+	UImeas_pressure();
+  uint8_t press = 0;
+  char press_ch[5];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
-    UImeas_pressure();
+
+    press = HX711_getPressure();
+    sprintf (press_ch, "%d", press);
+    ST7565_Print(44, 1, press_ch, &Font_11x18, 1, BLACK);
+    
+
 
 		// //Height
 		// HCSR04_Read();
