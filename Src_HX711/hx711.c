@@ -18,7 +18,13 @@ typedef enum {WAIT,SYS, DIAS, PULSE} measureState_t;
 typedef enum {START, INFLATE, DEFLATE, STOP} pumpState_t;
 static pumpState_t currentState = START;
 static measureState_t measureState = WAIT;
-//#############################################################################################
+
+unsigned long Weight = 0;
+unsigned long buffer = 0;
+unsigned long weight_noLoad = 8844000;
+float Weight_Real = 0;
+float calib_Weight;
+
 __STATIC_INLINE void HX711_delay_us(uint32_t microseconds)
 {
   uint32_t clk_cycle_start = DWT->CYCCNT;
@@ -95,21 +101,33 @@ uint32_t HX711_valueAve(uint16_t sample, Channel_t Channel, uint8_t Gain)
     ave += HX711_value(Channel, Gain);
   return (int32_t)(ave / sample);
 }
-//#############################################################################################
- float HX711_getWeight(void)
+
+unsigned long get_noLoad(void)
+{
+	return HX711_Read();
+}
+
+float getWeight(void)
  { 
-   float Weight = 0;
-   uint32_t weight_raw = HX711_valueAve(16, Channel_A, 128);
-   Weight = 2* ((pow(2,23) - weight_raw))/((pow(2, 23)/200));
-   return Weight;
+   buffer = HX711_Read();
+
+  if(buffer > weight_noLoad){
+    Weight_Real = (buffer - weight_noLoad)/calib_Weight;
+  }
+  else if(buffer <= weight_noLoad){
+    Weight_Real =  0.0f;
+  }
+  return Weight_Real;
  }
+
+
 
  /***
   * @brief lấy giá trị huyết áp
   * @param NONE
   * @return gía trị huyết áp
   * */
- uint8_t HX711_getPressure(void)
+ uint8_t getPressure(void)
  {
    uint8_t data = 0;
    uint32_t data_raw = HX711_valueAve(16, Channel_B, 32);
@@ -181,7 +199,7 @@ unsigned long HX711_Read(void)
   while (1)
   {
     if(HAL_GPIO_ReadPin(Dout_GPIO_PORT, Dout_GPIO_PIN) == 0){
-      delay_us(1);
+      delay_us(2);
       if(HAL_GPIO_ReadPin(Dout_GPIO_PORT, Dout_GPIO_PIN) == 0){
         break;
       }
@@ -194,7 +212,7 @@ unsigned long HX711_Read(void)
   delay_us(1);
   for(i = 0; i < 24; i++){
     HAL_GPIO_WritePin(SCK_GPIO_PORT, SCK_GPIO_PIN, SET);
-    delay_us(1);
+    delay_us(2);
     count = count << 1;
     HAL_GPIO_WritePin(SCK_GPIO_PORT, SCK_GPIO_PIN, RESET);
     if(HAL_GPIO_ReadPin(Dout_GPIO_PORT, Dout_GPIO_PIN) == 1){
@@ -205,6 +223,7 @@ unsigned long HX711_Read(void)
   delay_us(2);
   count = count^0x800000;
   HAL_GPIO_WritePin(SCK_GPIO_PORT, SCK_GPIO_PIN, RESET);
+  delay_us(2);
   return(count);
 }
 

@@ -209,18 +209,22 @@ int main(void)
 
 	HAL_Delay(100);
 	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
-	UImeas_pressure();
-  uint8_t press = 0;
-  char press_ch[5];
+	// UImeas_pressure();
+  // uint8_t press = 0;
+  // char press_ch[5];
+  unsigned long noload;
+  char noload_ch[10];
+  float weight = 0;
+  char weight_ch[5];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
 
-    press = HX711_getPressure();
-    sprintf (press_ch, "%d", press);
-    ST7565_Print(44, 1, press_ch, &Font_11x18, 1, BLACK);
+    weight = getWeight();
+   sprintf (weight_ch, "%.1f", weight);
+   ST7565_Print(1, 1, weight_ch, &Font_11x18, 1, BLACK);
     
 
 
