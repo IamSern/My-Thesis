@@ -25,6 +25,8 @@ unsigned long weight_noLoad = 8844000;
 float Weight_Real = 0;
 float calib_Weight;
 
+uint8_t press = 0;
+
 __STATIC_INLINE void HX711_delay_us(uint32_t microseconds)
 {
   uint32_t clk_cycle_start = DWT->CYCCNT;
@@ -130,7 +132,7 @@ float getWeight(void)
  uint8_t getPressure(void)
  {
    uint8_t data = 0;
-   uint32_t data_raw = HX711_valueAve(16, Channel_B, 32);
+   uint32_t data_raw = HX711_Read();
    data = 2* ((pow(2,23) - data_raw))/((pow(2, 23)/300));
  }
 
@@ -139,31 +141,17 @@ float getWeight(void)
    switch (currentState)
    {
    case START:
-     /* code */
-     break;
-   case INFLATE:
-   if(sysMax < pressure){
-     currentState = DEFLATE;
-   } 
-   else currentState = INFLATE;
-
-   case DEFLATE:
-   if(diasMin > pressure){
-     currentState = STOP;
-   }
-   else currentState = DEFLATE;
-   
-   }
-   switch (currentState)
-   {
-   case START:
      //show UI_gLCD
      UImeas_pressure();
-    //  measureState = SYS;
+     currentState = INFLATE;
+    
 
      break;
    case INFLATE:
-   SYS_measure();
+  //  SYS_measure();
+    HAL_GPIO_WritePin(Valve_GPIO_Port, Valve_Pin, ON);
+    HAL_GPIO_WritePin(Pump_GPIO_Port, Pump_Pin, ON);
+    press = getPressure();
    //update value pressure
     break;
    case DEFLATE:
@@ -175,18 +163,7 @@ float getWeight(void)
     break;
  }
  }
- 
-// void SYS_measure(void)
-// {
-//   HAL_GPIO_WritePin(Valve_GPIO_Port, Valve_Pin, ON);
-//   HAL_GPIO_WritePin(Pump_GPIO_Port, Pump_Pin, ON);
-//   HX711_getPressure();
-// }
-//
-// void DIAS_measure(void)
-// {
-//
-// }
+
 
 unsigned long HX711_Read(void)
 {

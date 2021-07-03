@@ -3,6 +3,10 @@
         {
             "name": "main_LVTN_03",
             "path": "."
+        },
+        {
+            "name": "RTOS_thesis",
+            "path": "..\\RTOS_thesis"
         }
     ],
     "settings": {

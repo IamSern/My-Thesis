@@ -216,15 +216,23 @@ int main(void)
   char noload_ch[10];
   float weight = 0;
   char weight_ch[5];
+  HAL_GPIO_WritePin(Pump_GPIO_Port, Pump_Pin, 1);
+  HAL_GPIO_WritePin(Valve_GPIO_Port, Valve_Pin, 1);
+  HAL_GPIO_WritePin(Buzzer_GPIO_Port,Buzzer_Pin, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
+		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+		HAL_Delay(100);
 
-    weight = getWeight();
-   sprintf (weight_ch, "%.1f", weight);
-   ST7565_Print(1, 1, weight_ch, &Font_11x18, 1, BLACK);
+
+
+
+//    weight = getWeight();
+//   sprintf (weight_ch, "%.1f", weight);
+//   ST7565_Print(1, 1, weight_ch, &Font_11x18, 1, BLACK);
     
 
 
