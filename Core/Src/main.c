@@ -22,7 +22,7 @@
                 "d:/_Project/LVTN/main_LVTN_03/MLX90614BAA",
                 "d:/_Project/LVTN/main_LVTN_03/Source_gLCD",
                 "d:/_Project/LVTN/main_LVTN_03/Source_rc522",
-                "d:/_Project/LVTN/main_LVTN_03/Src_HX711",`
+                "d:/_Project/LVTN/main_LVTN_03/Src_HX711",
                 "d:/_Project/LVTN/main_LVTN_03/util",
                 "d:/_Project/LVTN/main_LVTN_03/UI_gLCD",
 */
@@ -38,6 +38,7 @@
 #include "MLX90614.h"
 #include "hx711.h"
 #include "ui_gLCD.h"
+//#include "IconBitmap.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -202,12 +203,39 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+<<<<<<< HEAD
 
     uint8_t height = 123;
     char ch_height[10];
 
     float temp = 36.5;
     char ch_temp[10];
+=======
+  TimerDelay_Init();
+	ST7565_Init();
+	HX711_init();
+
+	HAL_Delay(100);
+	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
+	// UImeas_pressure();
+  // uint8_t press = 0;
+  // char press_ch[5];
+  unsigned long noload;
+  char noload_ch[10];
+  float weight = 0;
+  char weight_ch[5];
+  HAL_GPIO_WritePin(Pump_GPIO_Port, Pump_Pin, 1);
+  HAL_GPIO_WritePin(Valve_GPIO_Port, Valve_Pin, 1);
+  HAL_GPIO_WritePin(Buzzer_GPIO_Port,Buzzer_Pin, 1);
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+	while (1) {
+		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+		HAL_Delay(100);
+
+>>>>>>> hx711
 
     float weight = 60.7;
     char ch_weight[10];
@@ -215,10 +243,47 @@ int main(void)
     uint8_t pressure = 120;
     char pressure_ch[3];
 
+<<<<<<< HEAD
     uint8_t pulse = 53;
     char pulse_ch[2];
 
   /* USER CODE END 2 */
+=======
+//    weight = getWeight();
+//   sprintf (weight_ch, "%.1f", weight);
+//   ST7565_Print(1, 1, weight_ch, &Font_11x18, 1, BLACK);
+    
+
+
+		// //Height
+		// HCSR04_Read();
+		// heightShow(Distance);
+		// //RF
+		// if (MFRC522_Check(CardID) == MI_OK) {
+		// 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, SET);
+		// 	sprintf(bufCardID, "%02X %02X %02X %02X %02X", CardID[0], CardID[1], CardID[2], CardID[3], CardID[4]);
+		// 	ST7565_Print(7*7, 1+(9+2)*3, bufCardID, &Font_7x9, 1, 1);
+
+		// }
+		// else
+		// 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, SET);
+
+
+
+		// //Temp
+		// Temp1 = MLX90614_ReadTemp(MLX90614_DEFAULT_SA, MLX90614_TOBJ1);
+		// sprintf(bufTemp1, "%.1f", Temp1);
+		// ST7565_Print(5*7, 1+(9+2)*2, bufTemp1, &Font_7x9, 1, 1);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)&bufTemp1, 5, 100);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
+
+		// //Weight
+		// weight = HX711_getWeight();
+		// sprintf(bufWeight, "%.1f", weight);
+		// ST7565_Print(7*7, 1+(9+2), bufWeight, &Font_7x9, 1, 1);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)&bufWeight, 5, 100);
+		// HAL_UART_Transmit(&huart2, (uint8_t *)"     ", 5, 100);
+>>>>>>> hx711
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -552,6 +617,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13|Buzzer_Pin, GPIO_PIN_RESET);
+<<<<<<< HEAD
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|Pump_Pin|GPIO_PIN_10|GPIO_PIN_11
@@ -560,6 +626,16 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|Valve_Pin|GPIO_PIN_9, GPIO_PIN_RESET);
 
+=======
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_4|Pump_Pin|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|Valve_Pin|GPIO_PIN_9, GPIO_PIN_RESET);
+
+>>>>>>> hx711
   /*Configure GPIO pins : PC13 Buzzer_Pin */
   GPIO_InitStruct.Pin = GPIO_PIN_13|Buzzer_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -567,10 +643,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+<<<<<<< HEAD
   /*Configure GPIO pins : PA4 Pump_Pin PA10 PA11
                            PA12 */
   GPIO_InitStruct.Pin = GPIO_PIN_4|Pump_Pin|GPIO_PIN_10|GPIO_PIN_11
                           |GPIO_PIN_12;
+=======
+  /*Configure GPIO pins : PA0 PA4 Pump_Pin PA10
+                           PA11 PA12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_4|Pump_Pin|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12;
+>>>>>>> hx711
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

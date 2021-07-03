@@ -14,7 +14,7 @@
 #define FONT_7x9
 #define FONT_11x18
 #define FONT_16x26
-// Только цифры -- only numbers
+// only numbers
 #define FONT_16x28	
 
 #ifdef __cplusplus
@@ -101,6 +101,7 @@ extern FontDef_t Font_16x26;
 // Только цифры -- only numbers
 extern FontDef_t Font_16x28;
 #endif
+
 
 /**
  * @}

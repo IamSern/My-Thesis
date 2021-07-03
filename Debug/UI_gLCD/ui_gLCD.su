@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 ui_gLCD.c:4:6:wait	16	static
+=======
+ui_gLCD.c:6:6:UIwait	16	static
+ui_gLCD.c:17:6:showKQ	16	static
+ui_gLCD.c:24:6:startUp	16	static
+ui_gLCD.c:30:6:UImeas_pressure	16	static
+>>>>>>> hx711

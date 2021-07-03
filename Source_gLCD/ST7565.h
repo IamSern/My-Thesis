@@ -1,38 +1,14 @@
-/*
-
-  ******************************************************************************
-  * @file 			( фаил ):   ST7565.h
-  * @brief 		( описание ):  	
-  ******************************************************************************
-  * @attention 	( внимание ):
-  ******************************************************************************
-  
-*/
 
 #ifndef _ST7565_H
 #define _ST7565_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Includes ----------------------------------------------------------*/
-
-// Обязательно нужен #include "main.h" 
-// чтоб отдельно не подключать файлы связанные с МК и стандартными библиотеками
 #include "main.h"
-
 #include "fonts.h"
-
 #include "stdlib.h"
 #include "string.h"
 
+
 /*
-	подключение LCD_128_64_ST7565 ( GMG12864-06D ):
-
-	в CubeMX включаем SPI только на отправку скорость максимум
-	( пины желательно называем как в коде если нет то в коде ставим нужнве )
-
 	CS   ->   CS ( chip select )
 	RSE  ->   RES ( Reset )
 	RS   ->   DC ( date / command )
@@ -60,45 +36,21 @@ extern "C" {
 			//-----------------------------------------------
 			
 			// указываем порт SPI для HAL ( медлено )--------
-			#define 	ST7565_SPI_HAL 		hspi2
+#define 	ST7565_SPI_HAL 		hspi2
 			//-----------------------------------------------
-			
-		//============================================================================
-		
-		//=== указываем порты ( если в кубе назвали их DC RES CS то тогда нечего указывать не нужно )
-		#if defined (DC_GPIO_Port)
-		#else
-			#define DC_GPIO_Port		GPIOA
-			#define DC_Pin				GPIO_PIN_10
-		#endif
-		
-		#if defined (RES_GPIO_Port)
-		#else
-			#define RES_GPIO_Port   	GPIOA
-			#define RES_Pin			GPIO_PIN_11
-		#endif
-		
-		//--  Cесли используем порт CS для выбора устройства тогда раскомментировать ------------
-		// если у нас одно устройство лучше пин CS притянуть к земле( или на порту подать GND )
-		
-		#define CS_PORT
-		
-	
-		#ifdef CS_PORT
-			#if defined (CS_GPIO_Port)
-			#else
-				#define CS_GPIO_Port    GPIOA
-				#define CS_Pin			GPIO_PIN_12
-			#endif
-		#endif
-		
-		//=============================================================================
-		
-		// выбираем ориентацию экрана ( если нужно повернуть на 180 градусов )
-		// если не нужно то комментируем и получим 0 градусов
-		//#define SCREEN_ORIENTATION_180
-		
-//##########################################################################################################################
+					
+
+#define DC_GPIO_Port	GPIOA
+#define DC_Pin			GPIO_PIN_10
+
+
+#define RES_GPIO_Port   	GPIOA
+#define RES_Pin			GPIO_PIN_11
+
+
+#define CS_GPIO_Port    GPIOA
+#define CS_Pin			GPIO_PIN_12
+
 
 enum PixelStatus{ PIX_OFF, PIX_ON };
 
@@ -122,6 +74,7 @@ enum PixelStatus{ PIX_OFF, PIX_ON };
 /** Screen height in pixels (tested with 64) */
 #define SCREEN_HEIGHT 	64
 
+typedef enum {WHITE = 0, BLACK = 1} color_t;
 
 /* Absolute value */
 #define ABS(x)   ((x) > 0 ? (x) : -(x))
@@ -257,7 +210,7 @@ void ST7565_Clear(void);
 	******************************************************************************
 */
 
-void ST7565_Draw_pixel(int16_t x, int16_t y, uint8_t color);
+void ST7565_Draw_pixel(int16_t x, int16_t y, color_t color);
 
 /*
 	******************************************************************************
@@ -303,7 +256,7 @@ void ST7565_DrawChar(int16_t x, int16_t y, unsigned char ch, FontDef_t* Font, ui
 	* @return:	
 	******************************************************************************
 */
-void ST7565_Print(int16_t x, int16_t y, char* str, FontDef_t* Font, uint8_t multiplier, uint8_t color);
+void ST7565_Print(int16_t x, int16_t y, char* str, FontDef_t* Font, uint8_t multiplier, color_t color);
 /*
 	******************************************************************************
 	* @brief:  draw a line
@@ -312,7 +265,7 @@ void ST7565_Print(int16_t x, int16_t y, char* str, FontDef_t* Font, uint8_t mult
 
 	******************************************************************************
 */
-void ST7565_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint8_t c);
+void ST7565_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, color_t color);
 
 /*
 	******************************************************************************

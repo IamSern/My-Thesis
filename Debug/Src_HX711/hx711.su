@@ -1,5 +1,8 @@
-hx711.c:21:7:HX711_init	24	static
-hx711.c:43:10:HX711_value	32	static
-hx711.c:74:10:HX711_valueAve	40	static
-hx711.c:83:8:HX711_getWeight	16	static
-hx711.c:96:10:HX711_getPressure	16	static
+hx711.c:40:7:HX711_init	24	static
+hx711.c:67:10:HX711_value	32	static
+hx711.c:98:10:HX711_valueAve	40	static
+hx711.c:107:15:get_noLoad	8	static
+hx711.c:112:7:getWeight	8	static
+hx711.c:132:10:getPressure	16	static
+hx711.c:139:7:measurePress	8	static
+hx711.c:168:15:HX711_Read	24	static

@@ -5,8 +5,18 @@
             "path": "."
         },
         {
+<<<<<<< HEAD
             "name": "RTOS_mainLVTN",
             "path": "..\\RTOS_mainLVTN"
+=======
+            "name": "RTOS_thesis",
+            "path": "..\\RTOS_thesis"
         }
-    ]
+    ],
+    "settings": {
+        "files.associations": {
+            "timer_delay.h": "c"
+>>>>>>> hx711
+        }
+    }
 }

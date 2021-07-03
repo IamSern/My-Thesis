@@ -43,17 +43,29 @@ RCC.APB2TimFreq_Value=72000000
 PB6.Signal=I2C1_SCL
 SPI1.CalculateBaudRate=18.0 MBits/s
 PB6.Mode=I2C
+<<<<<<< HEAD
 Mcu.Pin6=PA4
 Mcu.Pin7=PA5
 Mcu.Pin8=PA6
 Mcu.Pin9=PA7
+=======
+Mcu.Pin6=PA3
+Mcu.Pin7=PA4
+Mcu.Pin8=PA5
+Mcu.Pin9=PA6
+>>>>>>> hx711
 RCC.AHBFreq_Value=72000000
 Mcu.Pin0=PC13-TAMPER-RTC
 Mcu.Pin1=PC14-OSC32_IN
 Mcu.Pin2=PD0-OSC_IN
 Mcu.Pin3=PD1-OSC_OUT
+<<<<<<< HEAD
 Mcu.Pin4=PA2
 Mcu.Pin5=PA3
+=======
+Mcu.Pin4=PA0-WKUP
+Mcu.Pin5=PA2
+>>>>>>> hx711
 ProjectManager.ProjectBuild=false
 NVIC.UsageFault_IRQn=true\:0\:0\:false\:false\:true\:false\:false
 NVIC.DebugMonitor_IRQn=true\:0\:0\:false\:false\:true\:false\:false
@@ -98,7 +110,11 @@ RCC.PLLSourceVirtual=RCC_PLLSOURCE_HSE
 ProjectManager.ProjectFileName=main_LVTN_03.ioc
 PA7.Mode=Full_Duplex_Master
 PD1-OSC_OUT.Mode=HSE-External-Oscillator
+<<<<<<< HEAD
 Mcu.PinsNb=28
+=======
+Mcu.PinsNb=29
+>>>>>>> hx711
 ProjectManager.NoMain=false
 SPI1.IPParameters=VirtualType,Mode,Direction,BaudRatePrescaler,CalculateBaudRate
 PA9.GPIO_Label=Pump
@@ -110,6 +126,11 @@ RCC.APB1CLKDivider=RCC_HCLK_DIV2
 PB10.Locked=true
 PC14-OSC32_IN.Signal=GPIO_Output
 RCC.FamilyName=M
+<<<<<<< HEAD
+=======
+PA0-WKUP.Signal=GPIO_Output
+PA0-WKUP.Locked=true
+>>>>>>> hx711
 PA13.Signal=SYS_JTMS-SWDIO
 PA3.Mode=Asynchronous
 PA11.Locked=true
@@ -142,25 +163,43 @@ ProjectManager.FreePins=false
 RCC.IPParameters=ADCFreqValue,AHBFreq_Value,APB1CLKDivider,APB1Freq_Value,APB1TimFreq_Value,APB2Freq_Value,APB2TimFreq_Value,FCLKCortexFreq_Value,FamilyName,HCLKFreq_Value,MCOFreq_Value,PLLCLKFreq_Value,PLLMCOFreq_Value,PLLMUL,PLLSourceVirtual,SYSCLKFreq_VALUE,SYSCLKSource,TimSysFreq_Value,USBFreq_Value,VCOOutput2Freq_Value
 ProjectManager.AskForMigrate=true
 Mcu.Name=STM32F103C(8-B)Tx
+<<<<<<< HEAD
 Mcu.Pin26=VP_SYS_VS_Systick
 Mcu.Pin27=VP_TIM4_VS_ClockSourceINT
 Mcu.Pin24=PB7
 PA2.Signal=USART2_TX
 ProjectManager.UnderRoot=true
 Mcu.Pin25=PB9
+=======
+Mcu.Pin26=PB9
+Mcu.Pin27=VP_SYS_VS_Systick
+Mcu.Pin24=PB6
+PA2.Signal=USART2_TX
+ProjectManager.UnderRoot=true
+Mcu.Pin25=PB7
+>>>>>>> hx711
 Mcu.IP8=USART2
 NVIC.TIM1_CC_IRQn=true\:0\:0\:false\:false\:true\:true\:true
+Mcu.Pin28=VP_TIM4_VS_ClockSourceINT
 Mcu.IP6=TIM1
 Mcu.IP7=TIM4
 ProjectManager.CoupleFile=false
 PB4.Locked=true
 PA4.Signal=GPIO_Output
 RCC.SYSCLKFreq_VALUE=72000000
+<<<<<<< HEAD
 Mcu.Pin22=PB4
 Mcu.Pin23=PB6
 RCC.TimSysFreq_Value=72000000
 Mcu.Pin20=PA13
 Mcu.Pin21=PA14
+=======
+Mcu.Pin22=PA14
+Mcu.Pin23=PB4
+RCC.TimSysFreq_Value=72000000
+Mcu.Pin20=PA12
+Mcu.Pin21=PA13
+>>>>>>> hx711
 PA10.Locked=true
 NVIC.ForceEnableDMAVector=true
 KeepUserPlacement=false
@@ -171,6 +210,7 @@ PB7.Mode=I2C
 PA11.Signal=GPIO_Output
 PA14.Signal=SYS_JTCK-SWCLK
 ProjectManager.HeapSize=0x200
+<<<<<<< HEAD
 Mcu.Pin15=PA8
 NVIC.HardFault_IRQn=true\:0\:0\:false\:false\:true\:false\:false
 Mcu.Pin16=PA9
@@ -185,6 +225,22 @@ NVIC.PriorityGroup=NVIC_PRIORITYGROUP_4
 Mcu.Pin11=PB11
 Mcu.Pin12=PB13
 Mcu.Pin10=PB10
+=======
+Mcu.Pin15=PB15
+NVIC.HardFault_IRQn=true\:0\:0\:false\:false\:true\:false\:false
+Mcu.Pin16=PA8
+Mcu.Pin13=PB13
+Mcu.Pin14=PB14
+Mcu.Pin19=PA11
+ProjectManager.ComputerToolchain=false
+Mcu.Pin17=PA9
+Mcu.Pin18=PA10
+VP_TIM4_VS_ClockSourceINT.Mode=Internal
+NVIC.PriorityGroup=NVIC_PRIORITYGROUP_4
+Mcu.Pin11=PB10
+Mcu.Pin12=PB11
+Mcu.Pin10=PA7
+>>>>>>> hx711
 PA2.Mode=Asynchronous
 RCC.APB1Freq_Value=36000000
 PB11.Locked=true
